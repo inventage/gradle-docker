@@ -181,14 +181,24 @@ class PalantirDockerPlugin implements Plugin<Project> {
             if (ext.load) {
                 buildCommandLine.add '--load'
             }
-	    if (ext.push) {
-	        buildCommandLine.add '--push'
-	    	if (ext.load) {
-    		    throw new Exception("cannot combine 'push' and 'load' options")
-	    	}
-	    }
+            if (ext.push) {
+                buildCommandLine.add '--push'
+                if (ext.load) {
+                    throw new Exception("cannot combine 'push' and 'load' options")
+                }
+            }
             if (ext.builder != null) {
                 buildCommandLine.addAll('--builder', ext.builder)
+            }
+            if (!ext.cacheFrom.isEmpty()) {
+                for (def cacheFrom in ext.cacheFrom) {
+                    buildCommandLine.addAll('--cache-from', cacheFrom)
+                }
+            }
+            if (!ext.cacheTo.isEmpty()) {
+                for (def cacheTo in ext.cacheTo) {
+                    buildCommandLine.addAll('--cache-to', cacheTo)
+                }
             }
         } else {
             buildCommandLine.add 'build'

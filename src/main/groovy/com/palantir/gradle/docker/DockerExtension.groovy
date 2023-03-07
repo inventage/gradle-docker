@@ -44,6 +44,8 @@ class DockerExtension {
     private String network = null
     private boolean buildx = false
     private Set<String> platform = ImmutableSet.of()
+    private Set<String> cacheFrom = ImmutableSet.of()
+    private Set<String> cacheTo = ImmutableSet.of()
     private boolean load = false
     private boolean push = false
     private String builder = null
@@ -211,6 +213,22 @@ class DockerExtension {
 
     public void platform(String... args) {
         this.platform = ImmutableSet.copyOf(args)
+    }
+
+    public Set<String> getCacheFrom() {
+        return cacheFrom
+    }
+
+    public void cacheFrom(String... args) {
+        this.cacheFrom = ImmutableSet.copyOf(args)
+    }
+
+    public Set<String> getCacheTo() {
+        return cacheTo
+    }
+
+    public void cacheTo(String... args) {
+        this.cacheTo = ImmutableSet.copyOf(args)
     }
 
     String getBuilder() {
